@@ -1,0 +1,116 @@
+import { useState, useEffect } from 'react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Solutions', href: '#solutions' },
+  { label: 'Products', href: '#products' },
+  { label: 'Contact', href: '#contact' },
+];
+
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-background/95 backdrop-blur-md shadow-lg border-b border-border'
+          : 'bg-transparent'
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <a href="#home" className="flex items-center gap-3" data-testid="link-home">
+            <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center">
+              <span className="text-white font-display font-bold text-xl">M</span>
+            </div>
+            <div>
+              <span className="font-display font-bold text-xl tracking-tight">
+                Moul Tools
+              </span>
+              <span className="hidden sm:inline font-display text-muted-foreground ml-1">
+                Systems
+              </span>
+            </div>
+          </a>
+
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                data-testid={`link-nav-${link.label.toLowerCase()}`}
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
+            <a
+              href="#contact"
+              className="bg-gradient-accent text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity shadow-md"
+              data-testid="button-get-quote"
+            >
+              Get a Quote
+            </a>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-foreground"
+            data-testid="button-mobile-menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden bg-card border-t border-border"
+            >
+              <div className="py-4 space-y-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors"
+                    data-testid={`link-mobile-${link.label.toLowerCase()}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <div className="px-4 pt-2">
+                  <a
+                    href="#contact"
+                    onClick={() => setIsOpen(false)}
+                    className="block text-center bg-gradient-accent text-white px-5 py-3 rounded-lg font-medium"
+                    data-testid="button-mobile-quote"
+                  >
+                    Get a Quote
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </header>
+  );
+}
