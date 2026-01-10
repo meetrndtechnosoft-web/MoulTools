@@ -1,11 +1,19 @@
-import { Target, Award, Globe, Users } from 'lucide-react';
+import { Target, Award, Clock, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { value: '25+', label: 'Years Experience', icon: Award },
-  { value: '500+', label: 'Projects Delivered', icon: Target },
-  { value: '50+', label: 'Global Clients', icon: Globe },
-  { value: '200+', label: 'Team Members', icon: Users },
+  { value: '500+', label: 'Moulds Delivered', icon: Award },
+  { value: '98%', label: 'On-Time Delivery', icon: Clock },
+  { value: 'OEM', label: 'Tier-1 Partners', icon: Target },
+  { value: '25+', label: 'Years Experience', icon: Users },
+];
+
+const strengths = [
+  'Advanced CAD/CAM design expertise',
+  'Experienced technical team',
+  'In-house Wirecut, VMC, and EDM setup',
+  'Proven process control and documentation',
+  'Quick turnaround and reliable after-sales support',
 ];
 
 export function About() {
@@ -25,29 +33,35 @@ export function About() {
               About Us
             </span>
             <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-              We Are <span className="text-gradient">Moul Tools</span>
-              <br />Three Decades of Excellence
+              We Are <span className="text-gradient">Moul Tool Systems</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              With a global presence and a commitment to excellence, we are dedicated to being 
-              your trusted partner every step of the way. From start to finish, we offer 
-              end-to-end solutions tailored to your needs.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Our reach extends across all continents, ensuring that we can deliver advanced 
-              and customized solutions that cater to your unique requirements. As a single-source 
-              supplier for multiple industries, including healthcare, packaging and industrial 
-              applications, our diverse portfolio and extensive experience make us the reliable choice.
+              Founded with a vision to bring precision and reliability to the tooling industry, 
+              Moul Tool Systems has steadily grown into a trusted name in mould manufacturing. 
+              From humble beginnings, we have expanded our infrastructure, team, and technology 
+              to serve clients across multiple sectors.
             </p>
             
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
-              data-testid="link-read-more"
-            >
-              Learn more about our vision
-              <span className="w-6 h-0.5 bg-primary" />
-            </a>
+            <div className="bg-muted/50 p-6 rounded-2xl mb-6">
+              <h3 className="font-display font-bold text-lg mb-4">Our Vision</h3>
+              <p className="text-muted-foreground mb-4">
+                To be a globally recognized partner for precision tooling and mould solutions.
+              </p>
+              <h3 className="font-display font-bold text-lg mb-4">Our Mission</h3>
+              <p className="text-muted-foreground">
+                To deliver innovative, high-quality tools that empower our clients to manufacture with excellence.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="font-semibold text-foreground">Key Strengths:</h4>
+              {strengths.map((strength, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
+                  <span className="text-muted-foreground">{strength}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div

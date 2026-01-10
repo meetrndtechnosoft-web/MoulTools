@@ -1,23 +1,24 @@
-import { Linkedin, Twitter, Facebook, Instagram, ArrowUp } from 'lucide-react';
+import { Linkedin, Twitter, Facebook, ArrowUp } from 'lucide-react';
+import logoImage from '@assets/image_1768022703284.png';
 
 const footerLinks = {
   company: [
     { label: 'About Us', href: '#about' },
     { label: 'Our Team', href: '#about' },
     { label: 'Careers', href: '#contact' },
-    { label: 'News', href: '#' },
+    { label: 'Quality', href: '#quality' },
   ],
-  solutions: [
-    { label: 'Precision Molds', href: '#solutions' },
-    { label: 'Automation', href: '#solutions' },
-    { label: 'Quality Control', href: '#solutions' },
-    { label: 'Custom Solutions', href: '#solutions' },
+  services: [
+    { label: 'Mould Design', href: '#services' },
+    { label: 'Precision Machining', href: '#services' },
+    { label: 'Maintenance', href: '#services' },
+    { label: 'Prototyping', href: '#services' },
   ],
   industries: [
-    { label: 'Healthcare', href: '#products' },
-    { label: 'Packaging', href: '#products' },
-    { label: 'Industrial', href: '#products' },
-    { label: 'Automotive', href: '#products' },
+    { label: 'Medical', href: '#products' },
+    { label: 'Healthcare & Pharma', href: '#products' },
+    { label: 'Consumer Goods', href: '#products' },
+    { label: 'Electronics', href: '#products' },
   ],
 };
 
@@ -25,7 +26,6 @@ const socialLinks = [
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
   { icon: Twitter, href: '#', label: 'Twitter' },
   { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
 ];
 
 export function Footer() {
@@ -39,17 +39,12 @@ export function Footer() {
         <div className="py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
             <a href="#home" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-display font-bold text-xl">M</span>
-              </div>
-              <div>
-                <span className="font-display font-bold text-xl">Moul Tools</span>
-                <span className="font-display text-white/60 ml-1">Systems</span>
-              </div>
+              <img src={logoImage} alt="Moul Tool Systems" className="h-14 w-auto bg-white rounded-lg p-1" />
             </a>
             <p className="text-white/60 leading-relaxed mb-6 max-w-sm">
-              Your trusted partner for precision molds, tooling systems, and industrial 
-              automation solutions. Excellence in manufacturing since establishment.
+              Precision engineering company specializing in mould and die design, 
+              manufacturing, and component machining. Delivering world-class tooling 
+              solutions since establishment.
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -83,9 +78,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-lg mb-6">Solutions</h4>
+            <h4 className="font-display font-bold text-lg mb-6">Services</h4>
             <ul className="space-y-3">
-              {footerLinks.solutions.map((link) => (
+              {footerLinks.services.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -117,7 +112,7 @@ export function Footer() {
 
         <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm">
-            © 2024 Moul Tools Systems. All rights reserved.
+            © 2024 Moul Tool Systems. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-white/40">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

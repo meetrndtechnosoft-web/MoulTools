@@ -37,11 +37,11 @@ export function Contact() {
             Get In Touch
           </span>
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-            Interested in Our <span className="text-gradient">Solutions?</span>
+            Contact <span className="text-gradient">Us</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Let's discuss how we can help with your manufacturing needs. 
-            Our experts are ready to assist you.
+            Ready to discuss your tooling requirements? Get in touch with our team 
+            and let's bring your project to life.
           </p>
         </motion.div>
 
@@ -61,11 +61,13 @@ export function Contact() {
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Head Office</h4>
+                    <h4 className="font-semibold mb-1">Office Address</h4>
                     <p className="text-muted-foreground text-sm">
-                      Industrial Area, Sector 15<br />
-                      Faridabad, Haryana 121007<br />
-                      India
+                      MOUL TOOL SYSTEMS<br />
+                      BALAJI INDUSTRIAL PARK,<br />
+                      SY.NO-210/2(OLD Sy. No.121/1), PLOT No. 2,<br />
+                      MORAI VILLAGE, VAPI,<br />
+                      DISTRICT- VALSAD, GUJARAT 396191
                     </p>
                   </div>
                 </div>
@@ -77,8 +79,7 @@ export function Contact() {
                   <div>
                     <h4 className="font-semibold mb-1">Phone</h4>
                     <p className="text-muted-foreground text-sm">
-                      +91 129 4000 XXX<br />
-                      +91 129 4000 XXX
+                      Contact us for phone details
                     </p>
                   </div>
                 </div>
@@ -90,8 +91,7 @@ export function Contact() {
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
                     <p className="text-muted-foreground text-sm">
-                      info@moultools.com<br />
-                      sales@moultools.com
+                      info@moultoolsystems.com
                     </p>
                   </div>
                 </div>

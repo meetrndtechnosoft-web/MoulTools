@@ -1,40 +1,54 @@
-import { Heart, Package, Factory, Wrench } from 'lucide-react';
+import { Heart, Package, Factory, Cpu, PenTool, Pill } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const industries = [
   {
     icon: Heart,
-    title: 'Healthcare',
-    description: 'Precision medical components, syringes, diagnostic devices, and pharmaceutical packaging solutions.',
+    title: 'Medical',
+    description: 'Precision components for medical devices and diagnostic equipment.',
     color: 'text-rose-500',
     bgColor: 'bg-rose-500/10',
   },
   {
-    icon: Package,
-    title: 'Packaging',
-    description: 'Caps, closures, thin-wall containers, and sustainable packaging solutions for consumer goods.',
+    icon: Pill,
+    title: 'Healthcare & Pharma',
+    description: 'Pharmaceutical packaging, syringes, and healthcare product moulds.',
     color: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
   },
   {
-    icon: Factory,
-    title: 'Industrial',
-    description: 'Automotive components, electrical housings, and industrial-grade plastic parts for demanding applications.',
+    icon: Package,
+    title: 'Consumer Goods',
+    description: 'High-quality moulds for everyday consumer products and packaging.',
     color: 'text-amber-500',
     bgColor: 'bg-amber-500/10',
   },
   {
-    icon: Wrench,
-    title: 'Custom Solutions',
-    description: 'Tailored tooling and manufacturing solutions designed specifically for your unique requirements.',
+    icon: PenTool,
+    title: 'Writing & Stationery',
+    description: 'Precision tooling for pens, markers, and stationery products.',
     color: 'text-emerald-500',
     bgColor: 'bg-emerald-500/10',
+  },
+  {
+    icon: Cpu,
+    title: 'Electronics',
+    description: 'Micro-precision moulds for electronic components and housings.',
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-500/10',
+  },
+  {
+    icon: Factory,
+    title: 'Packaging',
+    description: 'Thin-wall containers, closures, and packaging solutions.',
+    color: 'text-cyan-500',
+    bgColor: 'bg-cyan-500/10',
   },
 ];
 
 export function Industries() {
   return (
-    <section id="products" className="py-24 bg-muted/30 relative">
+    <section className="py-24 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,7 +61,7 @@ export function Industries() {
             Industries We Serve
           </span>
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-            Serving <span className="text-gradient">Multiple</span> Industries
+            Serving <span className="text-gradient">Diverse</span> Industries
           </h2>
           <p className="text-muted-foreground text-lg">
             Our diverse portfolio and extensive experience make us the reliable choice 
@@ -55,7 +69,7 @@ export function Industries() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {industries.map((industry, index) => (
             <motion.div
               key={industry.title}

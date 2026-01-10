@@ -8,7 +8,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Industrial precision machining"
+          alt="Precision mould manufacturing"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40" />
@@ -35,8 +35,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6"
           >
-            It All Starts With{' '}
-            <span className="text-gradient">Precision</span>
+            Precision in Every{' '}
+            <span className="text-gradient">Mould</span>
           </motion.h1>
 
           <motion.p
@@ -45,9 +45,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl"
           >
-            Your trusted partner for precision molds, tooling systems, and industrial 
-            automation solutions. We deliver excellence in manufacturing with cutting-edge 
-            technology and decades of expertise.
+            Moul Tool Systems is a precision engineering company specializing in mould and die design, 
+            manufacturing, and component machining. We deliver world-class tooling solutions for 
+            medical, healthcare, pharma, consumer goods, electronics, and packaging industries.
           </motion.p>
 
           <motion.div
@@ -57,11 +57,11 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4"
           >
             <a
-              href="#solutions"
+              href="#services"
               className="inline-flex items-center justify-center gap-2 bg-gradient-accent text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-all shadow-xl shadow-primary/25 group"
-              data-testid="button-explore-solutions"
+              data-testid="button-explore-services"
             >
-              Explore Solutions
+              Explore Services
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a

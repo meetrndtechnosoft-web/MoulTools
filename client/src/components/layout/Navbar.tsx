@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoImage from '@assets/image_1768022703284.png';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Solutions', href: '#solutions' },
+  { label: 'Services', href: '#services' },
   { label: 'Products', href: '#products' },
+  { label: 'Quality', href: '#quality' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -33,17 +35,7 @@ export function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <a href="#home" className="flex items-center gap-3" data-testid="link-home">
-            <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center">
-              <span className="text-white font-display font-bold text-xl">M</span>
-            </div>
-            <div>
-              <span className="font-display font-bold text-xl tracking-tight">
-                Moul Tools
-              </span>
-              <span className="hidden sm:inline font-display text-muted-foreground ml-1">
-                Systems
-              </span>
-            </div>
+            <img src={logoImage} alt="Moul Tool Systems" className="h-14 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
