@@ -43,7 +43,7 @@ export function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="text-sm font-medium text-white hover:text-foreground transition-colors relative group"
                 data-testid={`link-nav-${link.label.toLowerCase()}`}
               >
                 {link.label}
