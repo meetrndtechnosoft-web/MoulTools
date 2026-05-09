@@ -3,22 +3,23 @@ import logoImage from '@assets/image_1768022703284.png';
 
 const footerLinks = {
   company: [
-    { label: 'About Us', href: '#about' },
-    { label: 'Our Team', href: '#about' },
-    { label: 'Careers', href: '#contact' },
-    { label: 'Quality', href: '#quality' },
+    { label: 'About Us', href: '/#about' },
+    { label: 'Our Team', href: '/#about' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Careers', href: '/#contact' },
+    { label: 'Quality', href: '/#quality' },
   ],
   services: [
-    { label: 'Mould Design', href: '#services' },
-    { label: 'Precision Machining', href: '#services' },
-    { label: 'Maintenance', href: '#services' },
-    { label: 'Prototyping', href: '#services' },
+    { label: 'Mould Design', href: '/#services' },
+    { label: 'Precision Machining', href: '/#services' },
+    { label: 'Maintenance', href: '/#services' },
+    { label: 'Prototyping', href: '/#services' },
   ],
   industries: [
-    { label: 'Medical', href: '#products' },
-    { label: 'Healthcare & Pharma', href: '#products' },
-    { label: 'Consumer Goods', href: '#products' },
-    { label: 'Electronics', href: '#products' },
+    { label: 'Medical', href: '/#products' },
+    { label: 'Healthcare & Pharma', href: '/#products' },
+    { label: 'Consumer Goods', href: '/#products' },
+    { label: 'Electronics', href: '/#products' },
   ],
 };
 
@@ -38,7 +39,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
-            <a href="#home" className="flex items-center gap-3 mb-6">
+            <a href="/#home" className="flex items-center gap-3 mb-6">
               <img src={logoImage} alt="Moul Tool Systems" className="h-14 w-auto bg-white rounded-lg p-1" />
             </a>
             <p className="text-white/60 leading-relaxed mb-6 max-w-sm">

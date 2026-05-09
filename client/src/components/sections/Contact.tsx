@@ -1,8 +1,10 @@
 import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
 
 export function Contact() {
+  const { adminData } = useAdmin();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -79,7 +81,7 @@ export function Contact() {
                   <div>
                     <h4 className="font-semibold mb-1">Phone</h4>
                     <p className="text-muted-foreground text-sm">
-                      Contact us for phone details
+                      {adminData.contactPhone}
                     </p>
                   </div>
                 </div>
@@ -91,7 +93,7 @@ export function Contact() {
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
                     <p className="text-muted-foreground text-sm">
-                      info@moultoolsystems.com
+                      {adminData.contactEmail}
                     </p>
                   </div>
                 </div>

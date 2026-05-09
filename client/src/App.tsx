@@ -5,11 +5,24 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import BlogList from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
+import AdminLogin from "@/pages/admin/Login";
+import AdminDashboard from "@/pages/admin/Dashboard";
+import { AdminProvider } from "@/contexts/AdminContext";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/blog" component={BlogList} />
+      <Route path="/blog/:id" component={BlogPost} />
+      
+      {/* Admin Routes */}
+      <Route path="/admin" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/blog" component={AdminDashboard} />
+      
       <Route component={NotFound} />
     </Switch>
   );
@@ -19,8 +32,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
+        <AdminProvider>
+          <Router />
+          <Toaster />
+        </AdminProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

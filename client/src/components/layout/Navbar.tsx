@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logoImage from '@assets/image_1768022703284.png';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Products', href: '#products' },
-  { label: 'Quality', href: '#quality' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/#home' },
+  { label: 'About', href: '/#about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Products', href: '/#products' },
+  { label: 'Quality', href: '/#quality' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export function Navbar() {
@@ -34,7 +35,7 @@ export function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <a href="#home" className="flex items-center gap-3" data-testid="link-home">
+          <a href="/#home" className="flex items-center gap-3" data-testid="link-home">
             <img src={logoImage} alt="Moul Tool Systems" className="h-14 w-auto" />
           </a>
 
@@ -51,7 +52,7 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               className="bg-gradient-accent text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity shadow-md"
               data-testid="button-get-quote"
             >
@@ -90,7 +91,7 @@ export function Navbar() {
                 ))}
                 <div className="px-4 pt-2">
                   <a
-                    href="#contact"
+                    href="/#contact"
                     onClick={() => setIsOpen(false)}
                     className="block text-center bg-gradient-accent text-white px-5 py-3 rounded-lg font-medium"
                     data-testid="button-mobile-quote"

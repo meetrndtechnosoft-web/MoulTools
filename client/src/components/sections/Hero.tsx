@@ -1,13 +1,16 @@
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
-import heroImage from '@assets/generated_images/industrial_precision_machining_hero.png';
+import { useAdmin } from '@/contexts/AdminContext';
 
 export function Hero() {
+  const { adminData } = useAdmin();
+  const { hero } = adminData;
+
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src={hero.backgroundImage}
           alt="Precision mould manufacturing"
           className="w-full h-full object-cover"
         />
@@ -35,8 +38,10 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6"
           >
-            Precision in Every{' '}
-            <span className="text-gradient">Mould</span>
+            {hero.title.split(' ').map((word, i, arr) => {
+              if (i === arr.length - 1) return <span key={i} className="text-gradient">{word}</span>;
+              return word + ' ';
+            })}
           </motion.h1>
 
           <motion.p
@@ -45,9 +50,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl"
           >
-            Moul Tool Systems is a precision engineering company specializing in mould and die design, 
-            manufacturing, and component machining. We deliver world-class tooling solutions for 
-            medical, healthcare, pharma, consumer goods, electronics, and packaging industries.
+            {hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -57,15 +60,15 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4"
           >
             <a
-              href="#services"
+              href={hero.buttonLink}
               className="inline-flex items-center justify-center gap-2 bg-gradient-accent text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-all shadow-xl shadow-primary/25 group"
               data-testid="button-explore-services"
             >
-              Explore Services
+              {hero.buttonText}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
-              href="#about"
+              href="/#about"
               className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all border border-white/20"
               data-testid="button-learn-more"
             >
