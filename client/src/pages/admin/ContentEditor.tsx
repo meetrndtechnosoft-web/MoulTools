@@ -93,7 +93,7 @@ const IconInput = ({ value, onChange }: { value: string, onChange: (val: string)
 };
 
 export default function ContentEditor() {
-  const { adminData, updateAdminData } = useAdmin();
+  const { adminData, updateAdminData, contactForms } = useAdmin();
   const { toast } = useToast();
   const [formData, setFormData] = useState(adminData);
 
@@ -571,7 +571,7 @@ export default function ContentEditor() {
                 className="w-full bg-slate-950 border border-slate-800 text-white rounded-md p-2"
               >
                 <option value="">Select a Form</option>
-                {adminData.contactForms?.map((form: any) => (
+                {contactForms.map((form: any) => (
                   <option key={form.id} value={form.id}>
                     {form.name}
                   </option>
