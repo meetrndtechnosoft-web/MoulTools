@@ -6,7 +6,91 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Save } from "lucide-react";
+import { Save, Upload } from "lucide-react";
+
+const ImageInput = ({ value, onChange, placeholder }: { value: string, onChange: (val: string) => void, placeholder?: string }) => {
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2 items-center">
+        <Input 
+          value={value} 
+          onChange={(e) => onChange(e.target.value)}
+          className="bg-slate-950 border-slate-800 text-white flex-1"
+          placeholder={placeholder}
+        />
+        <div className="relative">
+          <Input 
+            type="file" 
+            accept="image/*" 
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => onChange(reader.result as string);
+                reader.readAsDataURL(file);
+              }
+            }}
+          />
+          <Button type="button" variant="outline" className="border-slate-800 bg-slate-950 text-white whitespace-nowrap">
+            <Upload className="w-4 h-4 mr-2" /> Upload
+          </Button>
+        </div>
+      </div>
+      {value && (
+        <div className="mt-2 h-32 rounded-md overflow-hidden relative border border-slate-800 bg-slate-900 flex items-center justify-center">
+          <img 
+            src={value} 
+            alt="Preview" 
+            className="w-full h-full object-cover"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 hover:opacity-100 transition-opacity">
+            <span className="text-xs font-semibold px-2 py-1 bg-black/60 rounded text-white backdrop-blur-sm">PREVIEW</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const IconInput = ({ value, onChange }: { value: string, onChange: (val: string) => void }) => {
+  return (
+    <div className="flex gap-2 items-center">
+      <Input 
+        value={value} 
+        onChange={(e) => onChange(e.target.value)}
+        className="bg-slate-900 border-slate-800 text-white flex-1"
+        placeholder="Lucide Name or SVG"
+      />
+      <div className="relative">
+        <Input 
+          type="file" 
+          accept="image/*,.svg" 
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onloadend = () => onChange(reader.result as string);
+              reader.readAsDataURL(file);
+            }
+          }}
+        />
+        <Button type="button" variant="outline" size="icon" className="border-slate-800 bg-slate-900 text-white h-10 w-10 shrink-0">
+          <Upload className="w-4 h-4" />
+        </Button>
+      </div>
+      <div className="w-10 h-10 flex items-center justify-center bg-slate-800 rounded shrink-0 border border-slate-700 overflow-hidden">
+        {(value.startsWith('data:') || value.startsWith('http')) ? (
+          <img src={value} className="w-6 h-6 object-contain" alt="icon preview" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+        ) : (
+          <span className="text-[10px] text-slate-400 font-mono overflow-hidden truncate px-1 text-center w-full">{value || 'None'}</span>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function ContentEditor() {
   const { adminData, updateAdminData } = useAdmin();
@@ -68,25 +152,12 @@ export default function ContentEditor() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label className="text-slate-300">Background Image URL</Label>
-            <Input 
-              value={formData.hero.backgroundImage} 
-              onChange={(e) => handleChange('hero', 'backgroundImage', e.target.value)}
-              className="bg-slate-950 border-slate-800 text-white"
+            <Label className="text-slate-300">Background Image</Label>
+            <ImageInput 
+              value={formData.hero.backgroundImage}
+              onChange={(val) => handleChange('hero', 'backgroundImage', val)}
               placeholder="https://example.com/image.jpg"
             />
-            {formData.hero.backgroundImage && (
-              <div className="mt-2 h-32 rounded-md overflow-hidden relative border border-slate-800">
-                <img 
-                  src={formData.hero.backgroundImage} 
-                  alt="Hero Preview" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                  <span className="text-xs font-semibold px-2 py-1 bg-black/60 rounded text-white backdrop-blur-sm">PREVIEW</span>
-                </div>
-              </div>
-            )}
           </div>
 
           <div className="space-y-2">
@@ -212,11 +283,10 @@ export default function ContentEditor() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs text-slate-500">Lucide Icon Name</Label>
-                  <Input 
+                  <Label className="text-xs text-slate-500">Lucide Icon Name or Upload SVG</Label>
+                  <IconInput 
                     value={stat.iconName} 
-                    onChange={(e) => handleArrayChange('about', 'stats', index, 'iconName', e.target.value)}
-                    className="bg-slate-900 border-slate-800 text-white"
+                    onChange={(val) => handleArrayChange('about', 'stats', index, 'iconName', val)}
                   />
                 </div>
               </div>
@@ -271,11 +341,10 @@ export default function ContentEditor() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-500">Lucide Icon Name</Label>
-                    <Input 
+                    <Label className="text-xs text-slate-500">Icon Name or Upload SVG</Label>
+                    <IconInput 
                       value={service.iconName} 
-                      onChange={(e) => handleArrayChange('services', 'items', index, 'iconName', e.target.value)}
-                      className="bg-slate-900 border-slate-800 text-white"
+                      onChange={(val) => handleArrayChange('services', 'items', index, 'iconName', val)}
                     />
                   </div>
                 </div>
@@ -354,11 +423,10 @@ export default function ContentEditor() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-500">Lucide Icon Name</Label>
-                    <Input 
+                    <Label className="text-xs text-slate-500">Icon Name or Upload SVG</Label>
+                    <IconInput 
                       value={category.iconName} 
-                      onChange={(e) => handleArrayChange('products', 'categories', index, 'iconName', e.target.value)}
-                      className="bg-slate-900 border-slate-800 text-white"
+                      onChange={(val) => handleArrayChange('products', 'categories', index, 'iconName', val)}
                     />
                   </div>
                 </div>
@@ -401,11 +469,10 @@ export default function ContentEditor() {
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-slate-300">Quality Image URL</Label>
-            <Input 
+            <Label className="text-slate-300">Quality Image</Label>
+            <ImageInput 
               value={formData.quality?.image || ''} 
-              onChange={(e) => handleChange('quality', 'image', e.target.value)}
-              className="bg-slate-950 border-slate-800 text-white"
+              onChange={(val) => handleChange('quality', 'image', val)}
             />
           </div>
           
@@ -423,11 +490,10 @@ export default function ContentEditor() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-500">Lucide Icon Name</Label>
-                    <Input 
+                    <Label className="text-xs text-slate-500">Icon Name or Upload SVG</Label>
+                    <IconInput 
                       value={feature.iconName} 
-                      onChange={(e) => handleArrayChange('quality', 'features', index, 'iconName', e.target.value)}
-                      className="bg-slate-900 border-slate-800 text-white"
+                      onChange={(val) => handleArrayChange('quality', 'features', index, 'iconName', val)}
                     />
                   </div>
                 </div>
