@@ -86,6 +86,7 @@ export interface AdminData {
     description: string;
     address: string;
     workingHours: string;
+    activeFormId: string;
   };
   contactEmail: string;
   contactPhone: string;
@@ -102,6 +103,16 @@ export interface BlogPost {
   published: boolean;
 }
 
+export type FormFieldType = 'text' | 'email' | 'phone' | 'textarea' | 'number' | 'select' | 'upload';
+
+export interface FormField {
+  id: string;
+  label: string;
+  type: FormFieldType;
+  required: boolean;
+  options?: string; // For select
+}
+
 export interface ContactForm {
   id: string;
   name: string;
@@ -110,6 +121,14 @@ export interface ContactForm {
   cc: string;
   mode: 'simple' | 'html';
   content: string;
+  fields: FormField[];
+}
+
+export interface FormSubmission {
+  id: string;
+  formId: string;
+  date: string;
+  data: Record<string, string>;
 }
 
 interface AdminContextType {
@@ -126,6 +145,9 @@ interface AdminContextType {
   addContactForm: (form: Omit<ContactForm, 'id'>) => void;
   updateContactForm: (id: string, form: Partial<ContactForm>) => void;
   deleteContactForm: (id: string) => void;
+  formSubmissions: FormSubmission[];
+  addFormSubmission: (submission: Omit<FormSubmission, 'id' | 'date'>) => void;
+  deleteFormSubmission: (id: string) => void;
 }
 
 const defaultAdminData: AdminData = {
@@ -290,7 +312,8 @@ const defaultAdminData: AdminData = {
     subtitle: "Get In Touch",
     description: "Ready to discuss your tooling requirements? Get in touch with our team and let's bring your project to life.",
     address: "MOUL TOOL SYSTEMS\nBALAJI INDUSTRIAL PARK,\nSY.NO-210/2(OLD Sy. No.121/1), PLOT No. 2,\nMORAI VILLAGE, VAPI,\nDISTRICT- VALSAD, GUJARAT 396191",
-    workingHours: "Monday - Saturday\n9:00 AM - 6:00 PM IST"
+    workingHours: "Monday - Saturday\n9:00 AM - 6:00 PM IST",
+    activeFormId: "1"
   },
   contactEmail: "info@moultoolsystems.com",
   contactPhone: "+91 123 456 7890"
@@ -317,7 +340,27 @@ const defaultContactForms: ContactForm[] = [
     toEmail: "info@moultoolsystems.com",
     cc: "",
     mode: "simple",
-    content: "New inquiry received from website."
+    content: "New inquiry received from website.",
+    fields: [
+      { id: "f1", label: "Full Name", type: "text", required: true },
+      { id: "f2", label: "Email Address", type: "email", required: true },
+      { id: "f3", label: "Phone Number", type: "phone", required: false },
+      { id: "f4", label: "Message", type: "textarea", required: true }
+    ]
+  }
+];
+
+const defaultFormSubmissions: FormSubmission[] = [
+  {
+    id: "1",
+    formId: "1",
+    date: new Date().toISOString(),
+    data: {
+      "Full Name": "John Doe",
+      "Email Address": "john@example.com",
+      "Phone Number": "+1 234 567 890",
+      "Message": "I am interested in your precision injection moulding services. Can we arrange a call?"
+    }
   }
 ];
 
@@ -360,6 +403,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return saved ? JSON.parse(saved) : defaultContactForms;
   });
 
+  const [formSubmissions, setFormSubmissions] = useState<FormSubmission[]>(() => {
+    const saved = localStorage.getItem('moul_form_submissions');
+    return saved ? JSON.parse(saved) : defaultFormSubmissions;
+  });
+
   // Save to localStorage when updated
   useEffect(() => {
     localStorage.setItem('moul_admin_data', JSON.stringify(adminData));
@@ -372,6 +420,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     localStorage.setItem('moul_contact_forms', JSON.stringify(contactForms));
   }, [contactForms]);
+
+  useEffect(() => {
+    localStorage.setItem('moul_form_submissions', JSON.stringify(formSubmissions));
+  }, [formSubmissions]);
 
   // Auth logic
   useEffect(() => {
@@ -423,6 +475,19 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setContactForms(prev => prev.filter(f => f.id !== id));
   };
 
+  const addFormSubmission = (submission: Omit<FormSubmission, 'id' | 'date'>) => {
+    const newSubmission = { 
+      ...submission, 
+      id: Date.now().toString(),
+      date: new Date().toISOString()
+    };
+    setFormSubmissions(prev => [newSubmission, ...prev]);
+  };
+
+  const deleteFormSubmission = (id: string) => {
+    setFormSubmissions(prev => prev.filter(s => s.id !== id));
+  };
+
   return (
     <AdminContext.Provider value={{
       isAdmin,
@@ -437,7 +502,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       contactForms,
       addContactForm,
       updateContactForm,
-      deleteContactForm
+      deleteContactForm,
+      formSubmissions,
+      addFormSubmission,
+      deleteFormSubmission
     }}>
       {children}
     </AdminContext.Provider>

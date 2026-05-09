@@ -561,6 +561,24 @@ export default function ContentEditor() {
                 className="bg-slate-950 border-slate-800 text-white min-h-[100px]"
               />
             </div>
+            
+            <div className="space-y-2 col-span-1 md:col-span-2 pt-4 border-t border-slate-800">
+              <Label className="text-slate-300 text-lg font-display">Active Contact Form</Label>
+              <p className="text-sm text-slate-400 mb-2">Select the form to display on the home page.</p>
+              <select
+                value={formData.contact?.activeFormId || ''}
+                onChange={(e) => handleChange('contact', 'activeFormId', e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 text-white rounded-md p-2"
+              >
+                <option value="">Select a Form</option>
+                {adminData.contactForms?.map((form: any) => (
+                  <option key={form.id} value={form.id}>
+                    {form.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
             <div className="space-y-2">
               <Label className="text-slate-300">Support Email</Label>
               <Input 

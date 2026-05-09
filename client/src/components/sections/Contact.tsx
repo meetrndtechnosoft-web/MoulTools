@@ -1,23 +1,32 @@
-import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Clock, Upload } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 
 export function Contact() {
-  const { adminData } = useAdmin();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    message: '',
-  });
+  const { adminData, contactForms, addFormSubmission } = useAdmin();
+  
+  const activeForm = contactForms.find(f => f.id === adminData.contact.activeFormId) || contactForms[0];
+  
+  const [formData, setFormData] = useState<Record<string, string>>({});
+
+  const handleInputChange = (label: string, value: string) => {
+    setFormData(prev => ({ ...prev, [label]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+    
+    if (activeForm) {
+      addFormSubmission({
+        formId: activeForm.id,
+        data: formData
+      });
+    }
+    
     alert('Thank you for your inquiry! We will get back to you soon.');
-    setFormData({ name: '', email: '', company: '', phone: '', message: '' });
+    setFormData({});
   };
 
   return (
@@ -121,94 +130,105 @@ export function Contact() {
             <form onSubmit={handleSubmit} className="bg-card p-8 rounded-2xl border border-border shadow-xl">
               <h3 className="font-display text-2xl font-bold mb-6">Send us a Message</h3>
               
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                    placeholder="John Doe"
-                    data-testid="input-name"
-                  />
+              {!activeForm ? (
+                <p className="text-muted-foreground">No active form configured.</p>
+              ) : (
+                <div className="space-y-6 mb-6">
+                  {activeForm.fields?.map(field => {
+                    const id = `field-${field.id}`;
+                    
+                    let inputElement = null;
+                    const commonClasses = "w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors";
+                    
+                    if (field.type === 'textarea') {
+                      inputElement = (
+                        <textarea
+                          id={id}
+                          required={field.required}
+                          rows={5}
+                          value={formData[field.label] || ''}
+                          onChange={(e) => handleInputChange(field.label, e.target.value)}
+                          className={`${commonClasses} resize-none`}
+                          placeholder={field.label}
+                        />
+                      );
+                    } else if (field.type === 'select') {
+                      const options = field.options ? field.options.split(',').map(o => o.trim()) : [];
+                      inputElement = (
+                        <select
+                          id={id}
+                          required={field.required}
+                          value={formData[field.label] || ''}
+                          onChange={(e) => handleInputChange(field.label, e.target.value)}
+                          className={commonClasses}
+                        >
+                          <option value="">Select an option</option>
+                          {options.map(o => <option key={o} value={o}>{o}</option>)}
+                        </select>
+                      );
+                    } else if (field.type === 'upload') {
+                      inputElement = (
+                        <div className="flex items-center gap-4">
+                           <input
+                            type="file"
+                            id={id}
+                            required={field.required}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                // Normally upload file, for mockup we just store file name
+                                handleInputChange(field.label, `File attached: ${file.name}`);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                          <label htmlFor={id} className={`${commonClasses} flex items-center justify-center cursor-pointer hover:bg-muted/50 gap-2 border-dashed border-2 py-6`}>
+                            <Upload className="w-5 h-5 text-muted-foreground" />
+                            <span className="text-muted-foreground">{formData[field.label] || "Click to upload a file"}</span>
+                          </label>
+                        </div>
+                      );
+                    } else {
+                      let type = 'text';
+                      if (field.type === 'email') type = 'email';
+                      if (field.type === 'phone') type = 'tel';
+                      if (field.type === 'number') type = 'number';
+                      
+                      inputElement = (
+                        <input
+                          type={type}
+                          id={id}
+                          required={field.required}
+                          value={formData[field.label] || ''}
+                          onChange={(e) => handleInputChange(field.label, e.target.value)}
+                          className={commonClasses}
+                          placeholder={field.label}
+                        />
+                      );
+                    }
+                    
+                    return (
+                      <div key={field.id}>
+                        <label htmlFor={id} className="block text-sm font-medium mb-2">
+                          {field.label} {field.required && <span className="text-red-500">*</span>}
+                        </label>
+                        {inputElement}
+                      </div>
+                    );
+                  })}
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                    placeholder="john@company.com"
-                    data-testid="input-email"
-                  />
-                </div>
-              </div>
+              )}
 
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium mb-2">
-                    Company
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                    placeholder="Your Company"
-                    data-testid="input-company"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                    placeholder="+91 XXXXX XXXXX"
-                    data-testid="input-phone"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Your Message *
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"
-                  placeholder="Tell us about your project requirements..."
-                  data-testid="input-message"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-accent text-white py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
-                data-testid="button-submit"
-              >
-                <Send className="w-5 h-5" />
-                Send Message
-              </button>
+              {activeForm && (
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-accent text-white py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+                  data-testid="button-submit"
+                >
+                  <Send className="w-5 h-5" />
+                  Send Message
+                </button>
+              )}
             </form>
           </motion.div>
         </div>
