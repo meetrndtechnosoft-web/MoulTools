@@ -1,5 +1,6 @@
 import { Shield, CheckCircle, Award, FileCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAdmin } from '@/contexts/AdminContext';
 import qualityImage from '@assets/generated_images/quality_control_inspection.png';
 
 const qualityFeatures = [
@@ -26,6 +27,9 @@ const qualityFeatures = [
 ];
 
 export function Quality() {
+  const { adminData } = useAdmin();
+  const { quality } = adminData;
+
   return (
     <section id="quality" className="py-24 bg-muted/30 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,15 +41,16 @@ export function Quality() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-              Quality Assurance
+              {quality.subtitle}
             </span>
             <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-              Committed to <span className="text-gradient">Excellence</span>
+              {quality.title.split(' ').map((word, i, arr) => {
+                if (i === arr.length - 1) return <span key={i} className="text-gradient">{word}</span>;
+                return word + ' ';
+              })}
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Quality is at the heart of everything we do. Every component undergoes 
-              dimensional inspection, assembly validation, and trial runs to ensure 
-              it meets the highest standards.
+              {quality.description}
             </p>
 
             <div className="grid sm:grid-cols-2 gap-6">

@@ -72,7 +72,7 @@ export default function BlogPost() {
 
         {/* Post Content */}
         <div className="max-w-3xl mx-auto px-4 py-16">
-          <div className="prose prose-invert prose-lg max-w-none prose-p:text-slate-300 prose-headings:font-display prose-headings:text-white prose-a:text-primary">
+          <div className="prose prose-invert prose-lg max-w-none text-white prose-p:text-white prose-headings:font-display prose-headings:text-white prose-a:text-primary">
             {/* In a real app we'd parse markdown here, but for mockup we render text with basic line breaks */}
             {post.content.split('\n').map((paragraph, index) => (
               paragraph.trim() ? <p key={index}>{paragraph}</p> : <br key={index} />

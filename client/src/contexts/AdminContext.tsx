@@ -9,6 +9,35 @@ export interface AdminData {
     buttonText: string;
     buttonLink: string;
   };
+  about: {
+    title: string;
+    subtitle: string;
+    description: string;
+    vision: string;
+    mission: string;
+  };
+  services: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  products: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  quality: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    description: string;
+    address: string;
+    workingHours: string;
+  };
   contactEmail: string;
   contactPhone: string;
 }
@@ -44,6 +73,35 @@ const defaultAdminData: AdminData = {
     buttonText: "Explore Our Capabilities",
     buttonLink: "#products"
   },
+  about: {
+    title: "We Are Moul Tool Systems",
+    subtitle: "About Us",
+    description: "Founded with a vision to bring precision and reliability to the tooling industry, Moul Tool Systems has steadily grown into a trusted name in mould manufacturing. From humble beginnings, we have expanded our infrastructure, team, and technology to serve clients across multiple sectors.",
+    vision: "To be a globally recognized partner for precision tooling and mould solutions.",
+    mission: "To deliver innovative, high-quality tools that empower our clients to manufacture with excellence."
+  },
+  services: {
+    title: "Services & Capabilities",
+    subtitle: "Our Services",
+    description: "Comprehensive mould design, precision machining, and engineering services tailored to your manufacturing requirements."
+  },
+  products: {
+    title: "Complete Product Range",
+    subtitle: "Our Products",
+    description: "From prototype moulds to high-volume production tooling, we offer comprehensive solutions for all your manufacturing needs."
+  },
+  quality: {
+    title: "Committed to Excellence",
+    subtitle: "Quality Assurance",
+    description: "Quality is at the heart of everything we do. Every component undergoes dimensional inspection, assembly validation, and trial runs to ensure it meets the highest standards."
+  },
+  contact: {
+    title: "Contact Us",
+    subtitle: "Get In Touch",
+    description: "Ready to discuss your tooling requirements? Get in touch with our team and let's bring your project to life.",
+    address: "MOUL TOOL SYSTEMS\nBALAJI INDUSTRIAL PARK,\nSY.NO-210/2(OLD Sy. No.121/1), PLOT No. 2,\nMORAI VILLAGE, VAPI,\nDISTRICT- VALSAD, GUJARAT 396191",
+    workingHours: "Monday - Saturday\n9:00 AM - 6:00 PM IST"
+  },
   contactEmail: "info@moultoolsystems.com",
   contactPhone: "+91 123 456 7890"
 };
@@ -69,7 +127,25 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Load data from localStorage
   const [adminData, setAdminData] = useState<AdminData>(() => {
     const saved = localStorage.getItem('moul_admin_data');
-    return saved ? JSON.parse(saved) : defaultAdminData;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Deep merge with defaultAdminData to ensure all sections exist
+        return {
+          ...defaultAdminData,
+          ...parsed,
+          hero: { ...defaultAdminData.hero, ...parsed.hero },
+          about: { ...defaultAdminData.about, ...parsed.about },
+          services: { ...defaultAdminData.services, ...parsed.services },
+          products: { ...defaultAdminData.products, ...parsed.products },
+          quality: { ...defaultAdminData.quality, ...parsed.quality },
+          contact: { ...defaultAdminData.contact, ...parsed.contact },
+        };
+      } catch (e) {
+        return defaultAdminData;
+      }
+    }
+    return defaultAdminData;
   });
 
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>(() => {

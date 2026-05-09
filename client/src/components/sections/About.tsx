@@ -1,5 +1,6 @@
 import { Target, Award, Clock, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAdmin } from '@/contexts/AdminContext';
 
 const stats = [
   { value: '500+', label: 'Moulds Delivered', icon: Award },
@@ -17,6 +18,9 @@ const strengths = [
 ];
 
 export function About() {
+  const { adminData } = useAdmin();
+  const { about } = adminData;
+
   return (
     <section id="about" className="py-24 bg-background relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent" />
@@ -30,26 +34,27 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-              About Us
+              {about.subtitle}
             </span>
             <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-              We Are <span className="text-gradient">Moul Tool Systems</span>
+              {about.title.split(' ').map((word, i, arr) => {
+                if (i === arr.length - 1) return <span key={i} className="text-gradient">{word}</span>;
+                if (i === arr.length - 2) return <span key={i} className="text-gradient">{word} </span>;
+                return word + ' ';
+              })}
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Founded with a vision to bring precision and reliability to the tooling industry, 
-              Moul Tool Systems has steadily grown into a trusted name in mould manufacturing. 
-              From humble beginnings, we have expanded our infrastructure, team, and technology 
-              to serve clients across multiple sectors.
+              {about.description}
             </p>
             
             <div className="bg-muted/50 p-6 rounded-2xl mb-6">
               <h3 className="font-display font-bold text-lg mb-4">Our Vision</h3>
               <p className="text-muted-foreground mb-4">
-                To be a globally recognized partner for precision tooling and mould solutions.
+                {about.vision}
               </p>
               <h3 className="font-display font-bold text-lg mb-4">Our Mission</h3>
               <p className="text-muted-foreground">
-                To deliver innovative, high-quality tools that empower our clients to manufacture with excellence.
+                {about.mission}
               </p>
             </div>
 

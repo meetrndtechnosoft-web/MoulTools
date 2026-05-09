@@ -36,14 +36,16 @@ export function Contact() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-            Get In Touch
+            {adminData.contact.subtitle}
           </span>
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-            Contact <span className="text-gradient">Us</span>
+            {adminData.contact.title.split(' ').map((word, i, arr) => {
+              if (i === arr.length - 1) return <span key={i} className="text-gradient">{word}</span>;
+              return word + ' ';
+            })}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Ready to discuss your tooling requirements? Get in touch with our team 
-            and let's bring your project to life.
+            {adminData.contact.description}
           </p>
         </motion.div>
 
@@ -64,12 +66,8 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Office Address</h4>
-                    <p className="text-muted-foreground text-sm">
-                      MOUL TOOL SYSTEMS<br />
-                      BALAJI INDUSTRIAL PARK,<br />
-                      SY.NO-210/2(OLD Sy. No.121/1), PLOT No. 2,<br />
-                      MORAI VILLAGE, VAPI,<br />
-                      DISTRICT- VALSAD, GUJARAT 396191
+                    <p className="text-muted-foreground text-sm whitespace-pre-line">
+                      {adminData.contact.address}
                     </p>
                   </div>
                 </div>
@@ -104,9 +102,8 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Working Hours</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Monday - Saturday<br />
-                      9:00 AM - 6:00 PM IST
+                    <p className="text-muted-foreground text-sm whitespace-pre-line">
+                      {adminData.contact.workingHours}
                     </p>
                   </div>
                 </div>

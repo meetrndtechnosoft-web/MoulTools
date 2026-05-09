@@ -1,5 +1,6 @@
 import { ArrowUpRight, PenTool, Cog, Wrench, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAdmin } from '@/contexts/AdminContext';
 
 const services = [
   {
@@ -29,6 +30,9 @@ const services = [
 ];
 
 export function Services() {
+  const { adminData } = useAdmin();
+  const { services: servicesData } = adminData;
+
   return (
     <section id="services" className="py-24 bg-gradient-industrial text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
@@ -45,14 +49,16 @@ export function Services() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-            Our Services
+            {servicesData.subtitle}
           </span>
           <h2 className="font-display text-4xl lg:text-5xl font-bold mb-6">
-            Services & <span className="text-primary">Capabilities</span>
+            {servicesData.title.split(' ').map((word, i, arr) => {
+              if (i === arr.length - 1) return <span key={i} className="text-primary">{word}</span>;
+              return word + ' ';
+            })}
           </h2>
           <p className="text-white/70 text-lg">
-            Comprehensive mould design, precision machining, and engineering services 
-            tailored to your manufacturing requirements.
+            {servicesData.description}
           </p>
         </motion.div>
 
