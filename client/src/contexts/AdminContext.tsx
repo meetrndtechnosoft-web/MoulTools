@@ -102,6 +102,16 @@ export interface BlogPost {
   published: boolean;
 }
 
+export interface ContactForm {
+  id: string;
+  name: string;
+  fromEmail: string;
+  toEmail: string;
+  cc: string;
+  mode: 'simple' | 'html';
+  content: string;
+}
+
 interface AdminContextType {
   isAdmin: boolean;
   login: (username: string, password: string) => boolean;
@@ -112,6 +122,10 @@ interface AdminContextType {
   addBlogPost: (post: Omit<BlogPost, 'id'>) => void;
   updateBlogPost: (id: string, post: Partial<BlogPost>) => void;
   deleteBlogPost: (id: string) => void;
+  contactForms: ContactForm[];
+  addContactForm: (form: Omit<ContactForm, 'id'>) => void;
+  updateContactForm: (id: string, form: Partial<ContactForm>) => void;
+  deleteContactForm: (id: string) => void;
 }
 
 const defaultAdminData: AdminData = {
@@ -295,6 +309,18 @@ const defaultBlogPosts: BlogPost[] = [
   }
 ];
 
+const defaultContactForms: ContactForm[] = [
+  {
+    id: "1",
+    name: "General Inquiry",
+    fromEmail: "noreply@moultoolsystems.com",
+    toEmail: "info@moultoolsystems.com",
+    cc: "",
+    mode: "simple",
+    content: "New inquiry received from website."
+  }
+];
+
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -329,6 +355,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return saved ? JSON.parse(saved) : defaultBlogPosts;
   });
 
+  const [contactForms, setContactForms] = useState<ContactForm[]>(() => {
+    const saved = localStorage.getItem('moul_contact_forms');
+    return saved ? JSON.parse(saved) : defaultContactForms;
+  });
+
   // Save to localStorage when updated
   useEffect(() => {
     localStorage.setItem('moul_admin_data', JSON.stringify(adminData));
@@ -337,6 +368,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     localStorage.setItem('moul_blog_posts', JSON.stringify(blogPosts));
   }, [blogPosts]);
+
+  useEffect(() => {
+    localStorage.setItem('moul_contact_forms', JSON.stringify(contactForms));
+  }, [contactForms]);
 
   // Auth logic
   useEffect(() => {
@@ -375,6 +410,19 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setBlogPosts(prev => prev.filter(p => p.id !== id));
   };
 
+  const addContactForm = (form: Omit<ContactForm, 'id'>) => {
+    const newForm = { ...form, id: Date.now().toString() };
+    setContactForms(prev => [newForm, ...prev]);
+  };
+
+  const updateContactForm = (id: string, form: Partial<ContactForm>) => {
+    setContactForms(prev => prev.map(f => f.id === id ? { ...f, ...form } : f));
+  };
+
+  const deleteContactForm = (id: string) => {
+    setContactForms(prev => prev.filter(f => f.id !== id));
+  };
+
   return (
     <AdminContext.Provider value={{
       isAdmin,
@@ -385,7 +433,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       blogPosts,
       addBlogPost,
       updateBlogPost,
-      deleteBlogPost
+      deleteBlogPost,
+      contactForms,
+      addContactForm,
+      updateContactForm,
+      deleteContactForm
     }}>
       {children}
     </AdminContext.Provider>

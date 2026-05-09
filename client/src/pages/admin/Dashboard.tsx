@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useLocation, Link, Route, Switch } from "wouter";
 import { useAdmin } from "@/contexts/AdminContext";
 import { Button } from "@/components/ui/button";
-import { Settings, FileText, LayoutTemplate, LogOut, Image as ImageIcon, Home } from "lucide-react";
+import { Settings, FileText, LayoutTemplate, LogOut, Mail, Home } from "lucide-react";
 
 // Sub-pages
 import ContentEditor from "./ContentEditor";
 import BlogManager from "./BlogManager";
+import ContactFormsManager from "./ContactFormsManager";
 
 export default function AdminDashboard() {
   const { isAdmin, logout } = useAdmin();
@@ -25,6 +26,7 @@ export default function AdminDashboard() {
   const navItems = [
     { name: "Content Settings", path: "/admin/dashboard", icon: LayoutTemplate },
     { name: "Blog Posts", path: "/admin/blog", icon: FileText },
+    { name: "Contact Forms", path: "/admin/forms", icon: Mail },
   ];
 
   return (
@@ -80,6 +82,7 @@ export default function AdminDashboard() {
         <Switch>
           <Route path="/admin/dashboard" component={ContentEditor} />
           <Route path="/admin/blog" component={BlogManager} />
+          <Route path="/admin/forms" component={ContactFormsManager} />
         </Switch>
       </main>
     </div>
