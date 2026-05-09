@@ -1,21 +1,6 @@
-import { Target, Award, Clock, Users } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAdmin } from '@/contexts/AdminContext';
-
-const stats = [
-  { value: '500+', label: 'Moulds Delivered', icon: Award },
-  { value: '98%', label: 'On-Time Delivery', icon: Clock },
-  { value: 'OEM', label: 'Tier-1 Partners', icon: Target },
-  { value: '25+', label: 'Years Experience', icon: Users },
-];
-
-const strengths = [
-  'Advanced CAD/CAM design expertise',
-  'Experienced technical team',
-  'In-house Wirecut, VMC, and EDM setup',
-  'Proven process control and documentation',
-  'Quick turnaround and reliable after-sales support',
-];
 
 export function About() {
   const { adminData } = useAdmin();
@@ -60,10 +45,10 @@ export function About() {
 
             <div className="space-y-3">
               <h4 className="font-semibold text-foreground">Key Strengths:</h4>
-              {strengths.map((strength, index) => (
-                <div key={index} className="flex items-center gap-3">
+              {about.strengths.map((strength) => (
+                <div key={strength.id} className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                  <span className="text-muted-foreground">{strength}</span>
+                  <span className="text-muted-foreground">{strength.text}</span>
                 </div>
               ))}
             </div>
@@ -76,26 +61,29 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-2 gap-6"
           >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card p-6 rounded-2xl border border-border shadow-lg hover:shadow-xl transition-shadow group"
-              >
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <stat.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div className="font-display text-4xl font-bold text-foreground mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground text-sm">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
+            {about.stats.map((stat, index) => {
+              const IconComponent = (Icons as any)[stat.iconName] || Icons.Award;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card p-6 rounded-2xl border border-border shadow-lg hover:shadow-xl transition-shadow group"
+                >
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <IconComponent className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="font-display text-4xl font-bold text-foreground mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-muted-foreground text-sm">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>

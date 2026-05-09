@@ -1,6 +1,49 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Define the shape of our admin data
+export interface Stat {
+  value: string;
+  label: string;
+  iconName: string;
+}
+
+export interface Strength {
+  id: string;
+  text: string;
+}
+
+export interface ServiceFeature {
+  id: string;
+  text: string;
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  iconName: string;
+  features: ServiceFeature[];
+}
+
+export interface Product {
+  name: string;
+  application: string;
+}
+
+export interface ProductCategory {
+  title: string;
+  iconName: string;
+  color: string;
+  bgColor: string;
+  products: Product[];
+}
+
+export interface QualityFeature {
+  title: string;
+  description: string;
+  iconName: string;
+}
+
 export interface AdminData {
   hero: {
     title: string;
@@ -15,21 +58,27 @@ export interface AdminData {
     description: string;
     vision: string;
     mission: string;
+    stats: Stat[];
+    strengths: Strength[];
   };
   services: {
     title: string;
     subtitle: string;
     description: string;
+    items: Service[];
   };
   products: {
     title: string;
     subtitle: string;
     description: string;
+    categories: ProductCategory[];
   };
   quality: {
     title: string;
     subtitle: string;
     description: string;
+    features: QualityFeature[];
+    image: string;
   };
   contact: {
     title: string;
@@ -78,22 +127,149 @@ const defaultAdminData: AdminData = {
     subtitle: "About Us",
     description: "Founded with a vision to bring precision and reliability to the tooling industry, Moul Tool Systems has steadily grown into a trusted name in mould manufacturing. From humble beginnings, we have expanded our infrastructure, team, and technology to serve clients across multiple sectors.",
     vision: "To be a globally recognized partner for precision tooling and mould solutions.",
-    mission: "To deliver innovative, high-quality tools that empower our clients to manufacture with excellence."
+    mission: "To deliver innovative, high-quality tools that empower our clients to manufacture with excellence.",
+    stats: [
+      { value: '500+', label: 'Moulds Delivered', iconName: 'Award' },
+      { value: '98%', label: 'On-Time Delivery', iconName: 'Clock' },
+      { value: 'OEM', label: 'Tier-1 Partners', iconName: 'Target' },
+      { value: '25+', label: 'Years Experience', iconName: 'Users' },
+    ],
+    strengths: [
+      { id: '1', text: 'Advanced CAD/CAM design expertise' },
+      { id: '2', text: 'Experienced technical team' },
+      { id: '3', text: 'In-house Wirecut, VMC, and EDM setup' },
+      { id: '4', text: 'Proven process control and documentation' },
+      { id: '5', text: 'Quick turnaround and reliable after-sales support' },
+    ]
   },
   services: {
     title: "Services & Capabilities",
     subtitle: "Our Services",
-    description: "Comprehensive mould design, precision machining, and engineering services tailored to your manufacturing requirements."
+    description: "Comprehensive mould design, precision machining, and engineering services tailored to your manufacturing requirements.",
+    items: [
+      {
+        id: '1',
+        title: 'Mould Design',
+        description: '3D modelling, product feasibility, and tool design using advanced CAD software. We transform your concepts into precise, manufacturable designs.',
+        iconName: 'PenTool',
+        features: [
+          { id: '1', text: '3D CAD/CAM Design' },
+          { id: '2', text: 'Product Feasibility' },
+          { id: '3', text: 'Tool Engineering' }
+        ],
+      },
+      {
+        id: '2',
+        title: 'Precision Machining',
+        description: 'High-accuracy component manufacturing using CNC, VMC, EDM and Wirecut machines for exceptional quality and tight tolerances.',
+        iconName: 'Cog',
+        features: [
+          { id: '1', text: 'CNC Machining' },
+          { id: '2', text: 'VMC Operations' },
+          { id: '3', text: 'EDM & Wirecut' }
+        ],
+      },
+      {
+        id: '3',
+        title: 'Maintenance & Repairs',
+        description: 'Mould rework, maintenance, and refurbishment services for extending tool life and ensuring consistent production quality.',
+        iconName: 'Wrench',
+        features: [
+          { id: '1', text: 'Mould Rework' },
+          { id: '2', text: 'Refurbishment' },
+          { id: '3', text: 'Preventive Maintenance' }
+        ],
+      },
+      {
+        id: '4',
+        title: 'Prototyping',
+        description: 'Rapid tooling and trial moulds to validate design and functionality before committing to full production.',
+        iconName: 'Lightbulb',
+        features: [
+          { id: '1', text: 'Rapid Tooling' },
+          { id: '2', text: 'Trial Moulds' },
+          { id: '3', text: 'Design Validation' }
+        ],
+      }
+    ]
   },
   products: {
     title: "Complete Product Range",
     subtitle: "Our Products",
-    description: "From prototype moulds to high-volume production tooling, we offer comprehensive solutions for all your manufacturing needs."
+    description: "From prototype moulds to high-volume production tooling, we offer comprehensive solutions for all your manufacturing needs.",
+    categories: [
+      {
+        iconName: 'Box',
+        title: 'Injection Moulds',
+        color: 'text-blue-500',
+        bgColor: 'bg-blue-500/10',
+        products: [
+          { name: 'Hand Injection Mould', application: 'Prototype & Sampling' },
+          { name: 'Single Cavity Prototype Mould', application: 'Product Development' },
+          { name: 'Multi Cavity Cold Runner Mould', application: 'General Production' },
+          { name: 'Hot Runner Mould (Semi/Fully Hot)', application: 'High Volume Production' },
+          { name: 'Valve Gate Type Mould', application: 'Pharma & Precision Components' },
+          { name: 'Unscrewing Mould', application: 'Threaded Parts, Caps, Closures' },
+          { name: 'In-Mould Closing Mould', application: 'Pharma & Consumer Closures' },
+          { name: 'Overmoulding / Insert Mould', application: 'Metal + Plastic Components' },
+          { name: 'Thin Wall Mould', application: 'Packaging, Disposable Containers' },
+          { name: 'Micro Precision Mould', application: 'Medical, Electronics Components' },
+        ],
+      },
+      {
+        iconName: 'Settings',
+        title: 'Precision Tooling & Components',
+        color: 'text-emerald-500',
+        bgColor: 'bg-emerald-500/10',
+        products: [
+          { name: 'Core & Cavity Inserts', application: 'Custom Mould Parts' },
+          { name: 'Electrode Manufacturing', application: 'EDM Applications' },
+          { name: 'Mould Base Manufacturing', application: 'Injection & Die Mould Base' },
+          { name: 'Ejector Pins / Sleeves / Lifters', application: 'Toolroom Components' },
+          { name: 'Custom Fixtures', application: 'Assembly & Testing Fixtures' },
+        ],
+      },
+      {
+        iconName: 'Cpu',
+        title: 'Engineering Services',
+        color: 'text-purple-500',
+        bgColor: 'bg-purple-500/10',
+        products: [
+          { name: '3D CAD Design & Modelling', application: 'Design & Product Development' },
+          { name: 'CAM Programming', application: 'Machining & Simulation' },
+          { name: 'Prototype Trials & Testing', application: 'Trial & Validation' },
+          { name: 'Mould Maintenance & Refurbishment', application: 'After-Sales Service' },
+        ],
+      },
+    ]
   },
   quality: {
     title: "Committed to Excellence",
     subtitle: "Quality Assurance",
-    description: "Quality is at the heart of everything we do. Every component undergoes dimensional inspection, assembly validation, and trial runs to ensure it meets the highest standards."
+    description: "Quality is at the heart of everything we do. Every component undergoes dimensional inspection, assembly validation, and trial runs to ensure it meets the highest standards.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      {
+        iconName: 'CheckCircle',
+        title: 'Dimensional Inspection',
+        description: 'Every component undergoes rigorous dimensional checks using precision measuring instruments.',
+      },
+      {
+        iconName: 'FileCheck',
+        title: 'Assembly Validation',
+        description: 'Complete assembly validation to ensure perfect fit and function before delivery.',
+      },
+      {
+        iconName: 'Award',
+        title: 'Trial Runs',
+        description: 'Comprehensive trial runs to verify mould performance and product quality.',
+      },
+      {
+        iconName: 'Shield',
+        title: 'ISO Standards',
+        description: 'Adherence to ISO-quality processes and client-specific quality benchmarks.',
+      },
+    ]
   },
   contact: {
     title: "Contact Us",

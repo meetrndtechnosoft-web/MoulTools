@@ -28,9 +28,9 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row text-white">
+    <div className="h-screen bg-slate-950 flex flex-col md:flex-row text-white overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
+      <aside className="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 h-full">
         <div className="p-6 border-b border-slate-800">
           <h2 className="text-xl font-display font-bold flex items-center gap-2">
             <Settings className="w-5 h-5 text-primary" />

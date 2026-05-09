@@ -1,30 +1,6 @@
-import { Shield, CheckCircle, Award, FileCheck } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAdmin } from '@/contexts/AdminContext';
-import qualityImage from '@assets/generated_images/quality_control_inspection.png';
-
-const qualityFeatures = [
-  {
-    icon: CheckCircle,
-    title: 'Dimensional Inspection',
-    description: 'Every component undergoes rigorous dimensional checks using precision measuring instruments.',
-  },
-  {
-    icon: FileCheck,
-    title: 'Assembly Validation',
-    description: 'Complete assembly validation to ensure perfect fit and function before delivery.',
-  },
-  {
-    icon: Award,
-    title: 'Trial Runs',
-    description: 'Comprehensive trial runs to verify mould performance and product quality.',
-  },
-  {
-    icon: Shield,
-    title: 'ISO Standards',
-    description: 'Adherence to ISO-quality processes and client-specific quality benchmarks.',
-  },
-];
 
 export function Quality() {
   const { adminData } = useAdmin();
@@ -54,7 +30,9 @@ export function Quality() {
             </p>
 
             <div className="grid sm:grid-cols-2 gap-6">
-              {qualityFeatures.map((feature, index) => (
+              {quality.features.map((feature, index) => {
+                const IconComponent = (Icons as any)[feature.iconName] || Icons.CheckCircle;
+                return (
                 <motion.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
@@ -64,14 +42,14 @@ export function Quality() {
                   className="flex items-start gap-4"
                 >
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <feature.icon className="w-5 h-5 text-primary" />
+                    <IconComponent className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">{feature.title}</h3>
                     <p className="text-muted-foreground text-sm">{feature.description}</p>
                   </div>
                 </motion.div>
-              ))}
+              )})}
             </div>
           </motion.div>
 
@@ -84,7 +62,7 @@ export function Quality() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src={qualityImage}
+                src={quality.image}
                 alt="Quality control inspection"
                 className="w-full h-auto"
               />
@@ -94,7 +72,7 @@ export function Quality() {
             <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-2xl shadow-xl border border-border">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-primary rounded-xl flex items-center justify-center">
-                  <Shield className="w-7 h-7 text-white" />
+                  <Icons.Shield className="w-7 h-7 text-white" />
                 </div>
                 <div>
                   <div className="font-display text-2xl font-bold">ISO</div>

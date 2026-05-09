@@ -1,52 +1,6 @@
+import * as Icons from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Box, Cpu, Settings } from 'lucide-react';
 import { useAdmin } from '@/contexts/AdminContext';
-
-const productCategories = [
-  {
-    icon: Box,
-    title: 'Injection Moulds',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-500/10',
-    products: [
-      { name: 'Hand Injection Mould', application: 'Prototype & Sampling' },
-      { name: 'Single Cavity Prototype Mould', application: 'Product Development' },
-      { name: 'Multi Cavity Cold Runner Mould', application: 'General Production' },
-      { name: 'Hot Runner Mould (Semi/Fully Hot)', application: 'High Volume Production' },
-      { name: 'Valve Gate Type Mould', application: 'Pharma & Precision Components' },
-      { name: 'Unscrewing Mould', application: 'Threaded Parts, Caps, Closures' },
-      { name: 'In-Mould Closing Mould', application: 'Pharma & Consumer Closures' },
-      { name: 'Overmoulding / Insert Mould', application: 'Metal + Plastic Components' },
-      { name: 'Thin Wall Mould', application: 'Packaging, Disposable Containers' },
-      { name: 'Micro Precision Mould', application: 'Medical, Electronics Components' },
-    ],
-  },
-  {
-    icon: Settings,
-    title: 'Precision Tooling & Components',
-    color: 'text-emerald-500',
-    bgColor: 'bg-emerald-500/10',
-    products: [
-      { name: 'Core & Cavity Inserts', application: 'Custom Mould Parts' },
-      { name: 'Electrode Manufacturing', application: 'EDM Applications' },
-      { name: 'Mould Base Manufacturing', application: 'Injection & Die Mould Base' },
-      { name: 'Ejector Pins / Sleeves / Lifters', application: 'Toolroom Components' },
-      { name: 'Custom Fixtures', application: 'Assembly & Testing Fixtures' },
-    ],
-  },
-  {
-    icon: Cpu,
-    title: 'Engineering Services',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-500/10',
-    products: [
-      { name: '3D CAD Design & Modelling', application: 'Design & Product Development' },
-      { name: 'CAM Programming', application: 'Machining & Simulation' },
-      { name: 'Prototype Trials & Testing', application: 'Trial & Validation' },
-      { name: 'Mould Maintenance & Refurbishment', application: 'After-Sales Service' },
-    ],
-  },
-];
 
 export function Products() {
   const { adminData } = useAdmin();
@@ -77,7 +31,9 @@ export function Products() {
         </motion.div>
 
         <div className="space-y-8">
-          {productCategories.map((category, categoryIndex) => (
+          {products.categories.map((category, categoryIndex) => {
+            const IconComponent = (Icons as any)[category.iconName] || Icons.Box;
+            return (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
@@ -88,7 +44,7 @@ export function Products() {
             >
               <div className="p-6 border-b border-border flex items-center gap-4">
                 <div className={`w-12 h-12 ${category.bgColor} rounded-xl flex items-center justify-center`}>
-                  <category.icon className={`w-6 h-6 ${category.color}`} />
+                  <IconComponent className={`w-6 h-6 ${category.color}`} />
                 </div>
                 <h3 className="font-display text-2xl font-bold">{category.title}</h3>
               </div>
@@ -111,7 +67,7 @@ export function Products() {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )})}
         </div>
       </div>
     </section>
