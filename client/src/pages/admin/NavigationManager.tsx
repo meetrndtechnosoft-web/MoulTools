@@ -87,6 +87,12 @@ export default function NavigationManager() {
   const { toast } = useToast();
   
   const [items, setItems] = useState<NavigationItem[]>(adminData.navigation || []);
+  const [headerStyle, setHeaderStyle] = useState(adminData.headerStyle || {
+    normalBgColor: 'transparent',
+    stickyBgColor: 'rgba(2, 6, 23, 0.95)',
+    textColor: 'rgba(148, 163, 184, 1)',
+    hoverTextColor: 'rgba(248, 250, 252, 1)'
+  });
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -123,7 +129,7 @@ export default function NavigationManager() {
   };
 
   const handleSave = () => {
-    updateAdminData({ navigation: items });
+    updateAdminData({ navigation: items, headerStyle });
     toast({ title: "Navigation updated successfully" });
   };
 
@@ -138,6 +144,55 @@ export default function NavigationManager() {
           <Save className="w-4 h-4" /> Save Navigation
         </Button>
       </div>
+
+      <Card className="bg-slate-950 border-slate-800">
+        <CardHeader>
+          <CardTitle className="text-white">Header Styling</CardTitle>
+          <CardDescription className="text-slate-400">
+            Customize the colors of the navigation menu.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-slate-300">Normal Background Color</Label>
+              <Input 
+                value={headerStyle.normalBgColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, normalBgColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. transparent or #000000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Sticky Background Color</Label>
+              <Input 
+                value={headerStyle.stickyBgColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, stickyBgColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. rgba(2, 6, 23, 0.95)"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Text Color</Label>
+              <Input 
+                value={headerStyle.textColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, textColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. #ffffff or rgba(148, 163, 184, 1)"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Hover Text Color</Label>
+              <Input 
+                value={headerStyle.hoverTextColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, hoverTextColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. #3b82f6"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className="bg-slate-950 border-slate-800">
         <CardHeader>

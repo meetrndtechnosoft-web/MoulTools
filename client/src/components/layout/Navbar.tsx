@@ -22,9 +22,14 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/95 backdrop-blur-md shadow-lg border-b border-border'
-          : 'bg-transparent'
+          ? 'backdrop-blur-md shadow-lg border-b border-border'
+          : ''
       }`}
+      style={{
+        backgroundColor: scrolled ? adminData.headerStyle?.stickyBgColor : adminData.headerStyle?.normalBgColor,
+        '--nav-text-color': adminData.headerStyle?.textColor,
+        '--nav-hover-color': adminData.headerStyle?.hoverTextColor,
+      } as React.CSSProperties}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -35,7 +40,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             {adminData.navigation?.map((link) => (
               link.isPage ? (
-                <Link key={link.id} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group" data-testid={`link-nav-${link.label.toLowerCase()}`}>
+                <Link key={link.id} href={link.href} className="text-sm font-medium transition-colors relative group text-[var(--nav-text-color)] hover:text-[var(--nav-hover-color)]" data-testid={`link-nav-${link.label.toLowerCase()}`}>
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                 </Link>
@@ -43,7 +48,7 @@ export function Navbar() {
                 <a
                   key={link.id}
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                  className="text-sm font-medium transition-colors relative group text-[var(--nav-text-color)] hover:text-[var(--nav-hover-color)]"
                   data-testid={`link-nav-${link.label.toLowerCase()}`}
                 >
                   {link.label}
@@ -62,7 +67,7 @@ export function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-[var(--nav-text-color)] hover:text-[var(--nav-hover-color)]"
             data-testid="button-mobile-menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}

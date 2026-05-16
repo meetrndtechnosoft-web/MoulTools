@@ -65,6 +65,13 @@ export interface FooterData {
   copyright: string;
 }
 
+export interface HeaderStyle {
+  normalBgColor: string;
+  stickyBgColor: string;
+  textColor: string;
+  hoverTextColor: string;
+}
+
 export interface AdminData {
   hero: {
     title: string;
@@ -112,6 +119,7 @@ export interface AdminData {
   contactEmail: string;
   contactPhone: string;
   navigation: NavigationItem[];
+  headerStyle: HeaderStyle;
   footer: FooterData;
 }
 
@@ -371,6 +379,12 @@ const defaultAdminData: AdminData = {
     { id: 'n6', label: 'Blog', href: '/blog', isPage: false },
     { id: 'n7', label: 'Contact', href: '/#contact', isPage: false },
   ],
+  headerStyle: {
+    normalBgColor: 'transparent',
+    stickyBgColor: 'rgba(2, 6, 23, 0.95)', // slate-950/95
+    textColor: 'rgba(148, 163, 184, 1)', // text-slate-400
+    hoverTextColor: 'rgba(248, 250, 252, 1)', // text-slate-50
+  },
   footer: {
     description: "Precision engineering company specializing in mould and die design, manufacturing, and component machining. Delivering world-class tooling solutions since establishment.",
     socialLinks: [
@@ -483,6 +497,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           products: { ...defaultAdminData.products, ...parsed.products },
           quality: { ...defaultAdminData.quality, ...parsed.quality },
           contact: { ...defaultAdminData.contact, ...parsed.contact },
+          headerStyle: { ...defaultAdminData.headerStyle, ...parsed.headerStyle },
         };
       } catch (e) {
         return defaultAdminData;
