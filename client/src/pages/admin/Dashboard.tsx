@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useLocation, Link, Route, Switch } from "wouter";
 import { useAdmin } from "@/contexts/AdminContext";
 import { Button } from "@/components/ui/button";
-import { Settings, FileText, LayoutTemplate, LogOut, Mail, Home, FilePlus2 } from "lucide-react";
+import { Settings, FileText, LayoutTemplate, LogOut, Mail, Home, FilePlus2, Navigation, PanelBottom } from "lucide-react";
 
 // Sub-pages
 import ContentEditor from "./ContentEditor";
 import BlogManager from "./BlogManager";
 import ContactFormsManager from "./ContactFormsManager";
 import DynamicPagesManager from "./DynamicPagesManager";
+import NavigationManager from "./NavigationManager";
+import FooterManager from "./FooterManager";
 
 export default function AdminDashboard() {
   const { isAdmin, logout } = useAdmin();
@@ -26,6 +28,8 @@ export default function AdminDashboard() {
 
   const navItems = [
     { name: "Content Settings", path: "/admin/dashboard", icon: LayoutTemplate },
+    { name: "Header Menu", path: "/admin/navigation", icon: Navigation },
+    { name: "Footer Setup", path: "/admin/footer", icon: PanelBottom },
     { name: "Blog Posts", path: "/admin/blog", icon: FileText },
     { name: "Contact Forms", path: "/admin/forms", icon: Mail },
     { name: "Custom Pages", path: "/admin/pages", icon: FilePlus2 },
@@ -42,7 +46,7 @@ export default function AdminDashboard() {
           </h2>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location === item.path;
@@ -86,6 +90,8 @@ export default function AdminDashboard() {
           <Route path="/admin/blog" component={BlogManager} />
           <Route path="/admin/forms" component={ContactFormsManager} />
           <Route path="/admin/pages" component={DynamicPagesManager} />
+          <Route path="/admin/navigation" component={NavigationManager} />
+          <Route path="/admin/footer" component={FooterManager} />
         </Switch>
       </main>
     </div>

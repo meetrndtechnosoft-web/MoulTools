@@ -2,20 +2,13 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImage from '@assets/image_1768022703284.png';
-
-const navLinks = [
-  { label: 'Home', href: '/#home' },
-  { label: 'About', href: '/#about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Products', href: '/#products' },
-  { label: 'Quality', href: '/#quality' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/#contact' },
-];
+import { useAdmin } from '@/contexts/AdminContext';
+import { Link } from 'wouter';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { adminData } = useAdmin();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,21 +28,28 @@ export function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <a href="/#home" className="flex items-center gap-3" data-testid="link-home">
+          <Link href="/#home" className="flex items-center gap-3" data-testid="link-home">
             <img src={logoImage} alt="Moul Tool Systems" className="h-14 w-auto" />
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-                data-testid={`link-nav-${link.label.toLowerCase()}`}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
+            {adminData.navigation?.map((link) => (
+              link.isPage ? (
+                <Link key={link.id} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group" data-testid={`link-nav-${link.label.toLowerCase()}`}>
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </Link>
+              ) : (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                  data-testid={`link-nav-${link.label.toLowerCase()}`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              )
             ))}
             <a
               href="/#contact"
@@ -78,16 +78,22 @@ export function Navbar() {
               className="md:hidden overflow-hidden bg-card border-t border-border"
             >
               <div className="py-4 space-y-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors"
-                    data-testid={`link-mobile-${link.label.toLowerCase()}`}
-                  >
-                    {link.label}
-                  </a>
+                {adminData.navigation?.map((link) => (
+                  link.isPage ? (
+                    <Link key={link.id} href={link.href} onClick={() => setIsOpen(false)} className="block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-testid={`link-mobile-${link.label.toLowerCase()}`}>
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.id}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors"
+                      data-testid={`link-mobile-${link.label.toLowerCase()}`}
+                    >
+                      {link.label}
+                    </a>
+                  )
                 ))}
                 <div className="px-4 pt-2">
                   <a

@@ -25,6 +25,8 @@ function Router() {
       <Route path="/admin/blog" component={AdminDashboard} />
       <Route path="/admin/forms" component={AdminDashboard} />
       <Route path="/admin/pages" component={AdminDashboard} />
+      <Route path="/admin/navigation" component={AdminDashboard} />
+      <Route path="/admin/footer" component={AdminDashboard} />
       <Route path="/pages/:slug" component={DynamicPageView} />
       
       <Route component={NotFound} />

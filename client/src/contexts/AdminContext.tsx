@@ -44,6 +44,27 @@ export interface QualityFeature {
   iconName: string;
 }
 
+export interface NavigationItem {
+  id: string;
+  label: string;
+  href: string;
+  isPage: boolean;
+  pageSlug?: string;
+}
+
+export interface FooterColumn {
+  id: string;
+  title: string;
+  links: NavigationItem[];
+}
+
+export interface FooterData {
+  description: string;
+  socialLinks: { id: string; icon: string; href: string; label: string }[];
+  columns: FooterColumn[];
+  copyright: string;
+}
+
 export interface AdminData {
   hero: {
     title: string;
@@ -90,6 +111,8 @@ export interface AdminData {
   };
   contactEmail: string;
   contactPhone: string;
+  navigation: NavigationItem[];
+  footer: FooterData;
 }
 
 export interface BlogPost {
@@ -338,7 +361,58 @@ const defaultAdminData: AdminData = {
     activeFormId: "1"
   },
   contactEmail: "info@moultoolsystems.com",
-  contactPhone: "+91 123 456 7890"
+  contactPhone: "+91 123 456 7890",
+  navigation: [
+    { id: 'n1', label: 'Home', href: '/#home', isPage: false },
+    { id: 'n2', label: 'About', href: '/#about', isPage: false },
+    { id: 'n3', label: 'Services', href: '/#services', isPage: false },
+    { id: 'n4', label: 'Products', href: '/#products', isPage: false },
+    { id: 'n5', label: 'Quality', href: '/#quality', isPage: false },
+    { id: 'n6', label: 'Blog', href: '/blog', isPage: false },
+    { id: 'n7', label: 'Contact', href: '/#contact', isPage: false },
+  ],
+  footer: {
+    description: "Precision engineering company specializing in mould and die design, manufacturing, and component machining. Delivering world-class tooling solutions since establishment.",
+    socialLinks: [
+      { id: 's1', icon: 'Linkedin', href: '#', label: 'LinkedIn' },
+      { id: 's2', icon: 'Twitter', href: '#', label: 'Twitter' },
+      { id: 's3', icon: 'Facebook', href: '#', label: 'Facebook' },
+    ],
+    columns: [
+      {
+        id: 'c1',
+        title: 'Company',
+        links: [
+          { id: 'cl1', label: 'About Us', href: '/#about', isPage: false },
+          { id: 'cl2', label: 'Our Team', href: '/#about', isPage: false },
+          { id: 'cl3', label: 'Blog', href: '/blog', isPage: false },
+          { id: 'cl4', label: 'Careers', href: '/#contact', isPage: false },
+          { id: 'cl5', label: 'Quality', href: '/#quality', isPage: false },
+        ]
+      },
+      {
+        id: 'c2',
+        title: 'Services',
+        links: [
+          { id: 'cl6', label: 'Mould Design', href: '/#services', isPage: false },
+          { id: 'cl7', label: 'Precision Machining', href: '/#services', isPage: false },
+          { id: 'cl8', label: 'Maintenance', href: '/#services', isPage: false },
+          { id: 'cl9', label: 'Prototyping', href: '/#services', isPage: false },
+        ]
+      },
+      {
+        id: 'c3',
+        title: 'Industries',
+        links: [
+          { id: 'cl10', label: 'Medical', href: '/#products', isPage: false },
+          { id: 'cl11', label: 'Healthcare & Pharma', href: '/#products', isPage: false },
+          { id: 'cl12', label: 'Consumer Goods', href: '/#products', isPage: false },
+          { id: 'cl13', label: 'Electronics', href: '/#products', isPage: false },
+        ]
+      }
+    ],
+    copyright: "© 2024 Moul Tool Systems. All rights reserved."
+  }
 };
 
 const defaultBlogPosts: BlogPost[] = [
