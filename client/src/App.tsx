@@ -9,6 +9,7 @@ import BlogList from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
+import DynamicPageView from "@/pages/DynamicPageView";
 import { AdminProvider } from "@/contexts/AdminContext";
 
 function Router() {
@@ -23,6 +24,8 @@ function Router() {
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/admin/blog" component={AdminDashboard} />
       <Route path="/admin/forms" component={AdminDashboard} />
+      <Route path="/admin/pages" component={AdminDashboard} />
+      <Route path="/pages/:slug" component={DynamicPageView} />
       
       <Route component={NotFound} />
     </Switch>

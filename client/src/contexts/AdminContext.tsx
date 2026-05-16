@@ -131,6 +131,24 @@ export interface FormSubmission {
   data: Record<string, string>;
 }
 
+export interface DynamicPage {
+  id: string;
+  title: string;
+  slug: string;
+  layout: 'standard' | 'gallery' | 'feature';
+  heroImage: string;
+  content: string;
+  sections: {
+    id: string;
+    type: 'text' | 'image' | 'icon-list';
+    title: string;
+    content: string;
+    image?: string;
+    items?: { id: string; title: string; desc: string; icon: string }[];
+  }[];
+  published: boolean;
+}
+
 interface AdminContextType {
   isAdmin: boolean;
   login: (username: string, password: string) => boolean;
@@ -148,6 +166,10 @@ interface AdminContextType {
   formSubmissions: FormSubmission[];
   addFormSubmission: (submission: Omit<FormSubmission, 'id' | 'date'>) => void;
   deleteFormSubmission: (id: string) => void;
+  dynamicPages: DynamicPage[];
+  addDynamicPage: (page: Omit<DynamicPage, 'id'>) => void;
+  updateDynamicPage: (id: string, page: Partial<DynamicPage>) => void;
+  deleteDynamicPage: (id: string) => void;
 }
 
 const defaultAdminData: AdminData = {
@@ -364,6 +386,8 @@ const defaultFormSubmissions: FormSubmission[] = [
   }
 ];
 
+const defaultDynamicPages: DynamicPage[] = [];
+
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -408,6 +432,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return saved ? JSON.parse(saved) : defaultFormSubmissions;
   });
 
+  const [dynamicPages, setDynamicPages] = useState<DynamicPage[]>(() => {
+    const saved = localStorage.getItem('moul_dynamic_pages');
+    return saved ? JSON.parse(saved) : defaultDynamicPages;
+  });
+
   // Save to localStorage when updated
   useEffect(() => {
     localStorage.setItem('moul_admin_data', JSON.stringify(adminData));
@@ -424,6 +453,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     localStorage.setItem('moul_form_submissions', JSON.stringify(formSubmissions));
   }, [formSubmissions]);
+
+  useEffect(() => {
+    localStorage.setItem('moul_dynamic_pages', JSON.stringify(dynamicPages));
+  }, [dynamicPages]);
 
   // Auth logic
   useEffect(() => {
@@ -488,6 +521,19 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setFormSubmissions(prev => prev.filter(s => s.id !== id));
   };
 
+  const addDynamicPage = (page: Omit<DynamicPage, 'id'>) => {
+    const newPage = { ...page, id: Date.now().toString() };
+    setDynamicPages(prev => [newPage, ...prev]);
+  };
+
+  const updateDynamicPage = (id: string, page: Partial<DynamicPage>) => {
+    setDynamicPages(prev => prev.map(p => p.id === id ? { ...p, ...page } : p));
+  };
+
+  const deleteDynamicPage = (id: string) => {
+    setDynamicPages(prev => prev.filter(p => p.id !== id));
+  };
+
   return (
     <AdminContext.Provider value={{
       isAdmin,
@@ -505,7 +551,11 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       deleteContactForm,
       formSubmissions,
       addFormSubmission,
-      deleteFormSubmission
+      deleteFormSubmission,
+      dynamicPages,
+      addDynamicPage,
+      updateDynamicPage,
+      deleteDynamicPage
     }}>
       {children}
     </AdminContext.Provider>
