@@ -27,8 +27,8 @@ export function Navbar() {
       }`}
       style={{
         backgroundColor: scrolled ? adminData.headerStyle?.stickyBgColor : adminData.headerStyle?.normalBgColor,
-        '--nav-text-color': adminData.headerStyle?.textColor,
-        '--nav-hover-color': adminData.headerStyle?.hoverTextColor,
+        '--nav-text-color': scrolled ? (adminData.headerStyle?.stickyTextColor || adminData.headerStyle?.textColor) : adminData.headerStyle?.textColor,
+        '--nav-hover-color': scrolled ? (adminData.headerStyle?.stickyHoverTextColor || adminData.headerStyle?.hoverTextColor) : adminData.headerStyle?.hoverTextColor,
       } as React.CSSProperties}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

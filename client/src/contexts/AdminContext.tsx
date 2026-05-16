@@ -70,6 +70,8 @@ export interface HeaderStyle {
   stickyBgColor: string;
   textColor: string;
   hoverTextColor: string;
+  stickyTextColor: string;
+  stickyHoverTextColor: string;
 }
 
 export interface AdminData {
@@ -384,6 +386,8 @@ const defaultAdminData: AdminData = {
     stickyBgColor: 'rgba(2, 6, 23, 0.95)', // slate-950/95
     textColor: 'rgba(148, 163, 184, 1)', // text-slate-400
     hoverTextColor: 'rgba(248, 250, 252, 1)', // text-slate-50
+    stickyTextColor: 'rgba(148, 163, 184, 1)', // text-slate-400
+    stickyHoverTextColor: 'rgba(248, 250, 252, 1)', // text-slate-50
   },
   footer: {
     description: "Precision engineering company specializing in mould and die design, manufacturing, and component machining. Delivering world-class tooling solutions since establishment.",

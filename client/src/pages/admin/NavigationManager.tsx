@@ -91,7 +91,9 @@ export default function NavigationManager() {
     normalBgColor: 'transparent',
     stickyBgColor: 'rgba(2, 6, 23, 0.95)',
     textColor: 'rgba(148, 163, 184, 1)',
-    hoverTextColor: 'rgba(248, 250, 252, 1)'
+    hoverTextColor: 'rgba(248, 250, 252, 1)',
+    stickyTextColor: 'rgba(148, 163, 184, 1)',
+    stickyHoverTextColor: 'rgba(248, 250, 252, 1)'
   });
 
   const sensors = useSensors(
@@ -164,6 +166,27 @@ export default function NavigationManager() {
               />
             </div>
             <div className="space-y-2">
+              <Label className="text-slate-300">Normal Text Color</Label>
+              <Input 
+                value={headerStyle.textColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, textColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. #ffffff or rgba(148, 163, 184, 1)"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Normal Hover Text Color</Label>
+              <Input 
+                value={headerStyle.hoverTextColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, hoverTextColor: e.target.value })}
+                className="bg-slate-900 border-slate-800 text-white"
+                placeholder="e.g. #3b82f6"
+              />
+            </div>
+            
+            <div className="col-span-1 md:col-span-2 my-2 border-t border-slate-800"></div>
+            
+            <div className="space-y-2">
               <Label className="text-slate-300">Sticky Background Color</Label>
               <Input 
                 value={headerStyle.stickyBgColor} 
@@ -173,19 +196,19 @@ export default function NavigationManager() {
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Text Color</Label>
+              <Label className="text-slate-300">Sticky Text Color</Label>
               <Input 
-                value={headerStyle.textColor} 
-                onChange={(e) => setHeaderStyle({ ...headerStyle, textColor: e.target.value })}
+                value={headerStyle.stickyTextColor || headerStyle.textColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, stickyTextColor: e.target.value })}
                 className="bg-slate-900 border-slate-800 text-white"
                 placeholder="e.g. #ffffff or rgba(148, 163, 184, 1)"
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Hover Text Color</Label>
+              <Label className="text-slate-300">Sticky Hover Text Color</Label>
               <Input 
-                value={headerStyle.hoverTextColor} 
-                onChange={(e) => setHeaderStyle({ ...headerStyle, hoverTextColor: e.target.value })}
+                value={headerStyle.stickyHoverTextColor || headerStyle.hoverTextColor} 
+                onChange={(e) => setHeaderStyle({ ...headerStyle, stickyHoverTextColor: e.target.value })}
                 className="bg-slate-900 border-slate-800 text-white"
                 placeholder="e.g. #3b82f6"
               />
