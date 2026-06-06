@@ -1,0 +1,600 @@
+[1G[0K⠙[1G[0K
+> rest-express@1.0.0 dev:client
+> vite dev --port 5000
+
+[1G[0K⠙[1G[0K
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v7.1.12[39m  [2mready in [0m[1m2082[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.31.92.162:[1m5000[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:38:53 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/contexts/AdminContext.tsx, /src/index.css[22m
+[2m9:38:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/src/contexts/AdminContext.tsx[22m Could not Fast Refresh ("useAdmin" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m9:38:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/pages/Blog.tsx, /src/pages/admin/Login.tsx, /src/pages/admin/Dashboard.tsx, /src/pages/BlogPost.tsx, /src/pages/admin/BlogManager.tsx, /src/pages/admin/ContactFormsManager.tsx, /src/components/sections/Products.tsx, /src/pages/admin/ContentEditor.tsx, /src/components/sections/Hero.tsx, /src/components/sections/About.tsx, /src/components/sections/Quality.tsx, /src/components/sections/Services.tsx, /src/components/sections/Contact.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:38:56 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/contexts/AdminContext.tsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:38:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/contexts/AdminContext.tsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:38:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/contexts/AdminContext.tsx, /src/index.css[22m [33m(x3)[39m
+[RUNTIME_ERROR]{"type":"runtime-error","timestamp":1778924339319,"name":"Error","message":"useAdmin must be used within an AdminProvider","stack":"    at useAdmin /home/runner/workspace/client/src/contexts/AdminContext.tsx:544:5\n    at AdminDashboard /home/runner/workspace/client/src/pages/admin/Dashboard.tsx:12:31\n\n\n\n\n\n\n\n","loc":{"line":544,"column":5,"file":"/home/runner/workspace/client/src/contexts/AdminContext.tsx"},"frame":"542|      }}>\n543|        {children}\n544|      </AdminContext.Provider>\n   |      ^\n545|    );\n546|  };"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:38:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/contexts/AdminContext.tsx, /src/index.css[22m
+[2m9:38:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/src/contexts/AdminContext.tsx[22m Could not Fast Refresh ("useAdmin" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m9:38:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/pages/Blog.tsx, /src/pages/admin/Login.tsx, /src/pages/admin/Dashboard.tsx, /src/pages/BlogPost.tsx, /src/pages/admin/BlogManager.tsx, /src/pages/admin/ContactFormsManager.tsx, /src/components/sections/Products.tsx, /src/pages/admin/ContentEditor.tsx, /src/components/sections/Hero.tsx, /src/components/sections/About.tsx, /src/components/sections/Quality.tsx, /src/components/sections/Services.tsx, /src/components/sections/Contact.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:39:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:30 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/admin/Dashboard.tsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:40 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/admin/Dashboard.tsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:40 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./DynamicPagesManager" from "client/src/pages/admin/Dashboard.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/client/src/pages/admin/Dashboard.tsx[39m:11:32
+[33m  8  |  import BlogManager from "./BlogManager";
+  9  |  import ContactFormsManager from "./ContactFormsManager";
+  10 |  import DynamicPagesManager from "./DynamicPagesManager";
+     |                                   ^
+  11 |  export default function AdminDashboard() {
+  12 |    _s();[39m
+      at TransformPluginContext._formatLog (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 8)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:26043:26)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:40 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./DynamicPagesManager" from "client/src/pages/admin/Dashboard.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/client/src/pages/admin/Dashboard.tsx[39m:11:32
+[33m  8  |  import BlogManager from "./BlogManager";
+  9  |  import ContactFormsManager from "./ContactFormsManager";
+  10 |  import DynamicPagesManager from "./DynamicPagesManager";
+     |                                   ^
+  11 |  export default function AdminDashboard() {
+  12 |    _s();[39m
+      at TransformPluginContext._formatLog (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 8)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:26043:26) [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:40 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./DynamicPagesManager" from "client/src/pages/admin/Dashboard.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/client/src/pages/admin/Dashboard.tsx[39m:11:32
+[33m  8  |  import BlogManager from "./BlogManager";
+  9  |  import ContactFormsManager from "./ContactFormsManager";
+  10 |  import DynamicPagesManager from "./DynamicPagesManager";
+     |                                   ^
+  11 |  export default function AdminDashboard() {
+  12 |    _s();[39m
+      at TransformPluginContext._formatLog (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 8)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:26043:26)
+      at async viteTransformMiddleware (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:27118:20)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:41 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./DynamicPagesManager" from "client/src/pages/admin/Dashboard.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/client/src/pages/admin/Dashboard.tsx[39m:11:32
+[33m  8  |  import BlogManager from "./BlogManager";
+  9  |  import ContactFormsManager from "./ContactFormsManager";
+  10 |  import DynamicPagesManager from "./DynamicPagesManager";
+     |                                   ^
+  11 |  export default function AdminDashboard() {
+  12 |    _s();[39m
+      at TransformPluginContext._formatLog (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 8)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:26043:26)
+      at async viteTransformMiddleware (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/config.js:27118:20) [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:40:42 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m [33m(x2)[39m
